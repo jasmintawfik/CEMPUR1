@@ -1,0 +1,28 @@
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Vent til siden er indlæst
+    const slider = document.getElementById("førEfterSlider");
+    // 2. Find elementet med id'et "førEfterSlider"
+
+    if (slider) {
+        // 3. Tjek om slideren eksisterer
+        slider.addEventListener("pointermove", function(event) {
+            // 4. Lyt efter når musen/pegeren bevæger sig
+
+            if (event.buttons === 1) {
+                // 5. Tjek om venstre museknap holdes nede
+                const rect = slider.getBoundingClientRect();
+                // 6. Hent sliderens placering og størrelse på skærmen
+
+                const position = ((event.clientX - rect.left) / rect.width) * 100;
+                // 7. Udregn musens position som en procentdel (0-100%)
+
+                slider.style.setProperty(
+                    // 8. Opdater CSS-variablen "--pos" med den nye procentdel
+                    "--pos",
+                    Math.max(0, Math.min(100, position)) + "%"
+                    // 9. Lås værdien fast mellem 0 og 100 procent
+                );
+            }
+        });
+    }
+});
